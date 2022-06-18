@@ -76,3 +76,4 @@ WITH unique_session_count_by_hour AS (
 SELECT AVG(COUNT)
 FROM unique_session_count_by_hour
 ```
+
