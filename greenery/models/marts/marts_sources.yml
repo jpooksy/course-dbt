@@ -1,0 +1,24 @@
+version: 2
+
+sources:
+
+  - name: greenery
+    schema: public
+    database: dbt
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    freshness:
+      warn_after: {count: 24, period: hour}
+      error_after: {count: 48, period: hour}
+
+    tables:
+      - name: fct_sessions
+        loaded_at_field: created_at
+      - name: fct_user_lifetime_value
+        loaded_at_field: created_at
+      - name: fct_orders
+        loaded_at_field: created_at

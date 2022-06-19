@@ -1,0 +1,97 @@
+version: 2
+
+models:
+  - name: fct_orders
+    description: Combining orders their order quantity and a numerical value of promo used
+    columns:
+      - name: order_id
+        description: the unique id associated with the order
+        tests:
+        - not_null
+        - unique
+      - name: user_id
+        description: the user id associated with the order's user. users can have multiple orders. 
+      - name: created_at
+        tests:
+        - not_null
+        description: when the order was created
+      - name: order_total
+        description: the total value of the order in usd
+      - name: order times
+        description: the number of items in the order
+      - name: estimated_delivery_at
+        description: estimated delivery of order
+      - name: delivered_at
+        description: actual deliverary time
+      - name: first_name
+        description: first name of user
+      - name: last_name
+        description: last name of user
+      - name: email
+        description: user email
+      - name: phone_number
+        description: user phone number
+      - name: promo_used_digitized
+        description: boolean value. 1 if digitized was used for order
+      - name: promo_instruction_set
+        description: boolean value. 1 if instruction_set was used for order
+      - name: promo_used_leverage
+        description: boolean value. 1 if leverage was used for order
+      - name: promo_used_mandatory
+        description: boolean value. 1 if mandatory was used for order
+      - name: promo_used_optional
+        description: boolean value. 1 if optional was used for order
+      - name: promo_used_task_force
+        description: boolean value. 1 if task force was used for order
+        
+
+  - name: fct_user_lifetime_value
+    description: Combining orders to users to see number or orders and order value (customer lifetime value)
+    columns:
+      - name: user_id
+        tests:
+        - not_null
+        - unique
+      - name: first_name
+        description: first name of user
+      - name: last_name
+        description: last name of user
+      - name: email
+        description: user email
+      - name: phone_number
+        description: user phone number
+      - name: user_orders_quantity
+        description: the total number or orders the users has placed
+      - name: user_orders_value
+        description: the total amount spent on the users
+
+
+
+  - name: fct_sessions
+    description: Combining users and events to sessions
+    columns:
+      - name: session_id
+        tests:
+        - not_null
+      - name: user_id
+        description: the user id associated with the order's user. users can have multiple orders. 
+      - name: first_name
+        description: first name of user
+      - name: last_name
+        description: last name of user
+      - name: email
+        description: user email
+      - name: add_to_cart
+        description: boolean value for when user completed action add to cart
+      - name: checkout
+        description: boolean value for when user completed action checkout
+      - name: page_view
+        description: boolean value for when user completed action page view
+      - name: package_shipped
+        description: boolean value for when user completed action package shipped
+      - name: first_event
+        description: UTC time of users first event in the given session
+      - name: last_event
+        description: UTC time of users last event in the given session
+      - name: session_length_minutes
+        description: the number of minutes user spent in a given session
