@@ -13,6 +13,7 @@ models:
         description: The first few lines of the address
       - name: zipcode
         description: The zipcode of the address
+        test: zip_code_length
       - name: state
         description: state this delivery address is based in
       - name: country

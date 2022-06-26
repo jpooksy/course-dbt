@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: int_product_session_events_basic_agg
+    description: Event type by session id and user
+    columns:
+      - name: session_id
+        description: session_id of the event. This id is not unique
+        tests:
+        - not_null
+  - name: fct_product_sessions
+    description: Event type by session id and user
+    columns:
+      - name: session_id
+        description: session_id of the event. This id is not unique
+        tests:
+        - not_null
