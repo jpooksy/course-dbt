@@ -1,36 +1,14 @@
 version: 2
 
 models:
-  - name: fct_core_orders
-    description: Combining orders their order quantity and a numerical value of promo used
-    columns:
-      - name: order_id
-        description: the unique id associated with the order
-        tests:
-        - not_null
-        - unique
-      - name: user_id
-        description: the user id associated with the order's user. users can have multiple orders. 
-      - name: created_at
-        tests:
-        - not_null
-        
 
-  - name: fct_core_user
-    description: Combining orders to users to see aggregate values of user spend, orders, order items, and distinct order_items
+  - name: dim_core_order_user_geo
+    description: Combining users orders to their geo
     columns:
       - name: user_id
         tests:
         - not_null
-        - unique
-
-  - name: fct_core_order_items_products
-    description: Combining orders ids to their cooresponding item id and order item name
-    columns:
-      - name: order_id
-        tests:
-        - not_null
-      - name: product_id
+      - name: state
         tests:
         - not_null
 
@@ -43,19 +21,29 @@ models:
         - not_null
         - unique
 
-  - name: dim_core_order_user_geo
-    description: Combining users orders to their geo
+
+  - name: fct_core_order_items_products
+    description: Combining orders ids to their cooresponding item id and order item name
+    columns:
+      - name: order_id
+        tests:
+        - not_null
+      - name: product_id
+        tests:
+        - not_null
+
+
+  - name: fct_core_user
+    description: Combining orders to users to see aggregate values of user spend, orders, order items, and distinct order_items
     columns:
       - name: user_id
         tests:
         - not_null
-      - name: state
-        tests:
-        - not_null
+        - unique
 
-  - name: int_core_products_sold_per_order_agg
-    description: finding the item quantity of each order
+  - name: fct_core_user_orders
+    description: order info attached to users. Users not unique
     columns:
-      - name: order_id
+      - name: user_id
         tests:
         - not_null

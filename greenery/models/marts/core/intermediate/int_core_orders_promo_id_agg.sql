@@ -1,8 +1,11 @@
-{{
-    config (
-        materialized = 'table'
-    )
-}}
+{{ config(materialized = 'table')  }}
+
+{% 
+    set promo_ids = dbt_utils.get_column_values(
+        table=ref('stg_orders'),
+        column='promo_id'
+    ) 
+%}
 
 
 SELECT
@@ -10,11 +13,8 @@ SELECT
     ,user_id
     ,address_id
     ,created_at
-    ,sum(case when promo_id = 'Digitized' then 1 else 0 end) as promo_used_digitized
-    ,sum(case when promo_id = 'instruction set' then 1 else 0 end) as promo_used_instruction_set
-    ,sum(case when promo_id = 'leverage' then 1 else 0 end) as promo_used_leverage
-	,sum(case when promo_id = 'Mandatory' then 1 else 0 end) as promo_used_mandatory
-    ,sum(case when promo_id = 'Optional' then 1 else 0 end) as promo_used_optional
-    ,sum(case when promo_id = 'task-force' then 1 else 0 end) as promo_used_task_force
+    {% for promo in promo_ids %}
+    , {{aggregate_promos( promo )}} AS {{promo}}
+    {% endfor %}
 from {{ ref ('stg_orders') }}
 group by 1,2,3,4

@@ -11,7 +11,7 @@ renamed AS (
     SELECT
         order_id,
         user_id,
-        promo_id,
+        replace(replace(lower(promo_id), '-', '_'), ' ', '_') as promo_id,
         address_id,
         created_at,
         order_cost,
@@ -25,6 +25,7 @@ renamed AS (
     FROM
         source
 )
+
 SELECT
     *
 FROM
